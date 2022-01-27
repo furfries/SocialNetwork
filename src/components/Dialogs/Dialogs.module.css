@@ -45,6 +45,12 @@
 }
 
 .sendBlock {
-    display: flex;
-    align-items: stretch;
+    display: grid;
+    grid-column: 1 / 4;
+    grid-template-columns: 10fr 2fr;
+    margin-top: 20px;
+}
+.sendBlock textarea {
+    height: 50px;
+
 }

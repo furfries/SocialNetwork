@@ -17,7 +17,6 @@ const Dialogs = (props) => {
         let text = newMessageElement.current.value;
         props.updateNewMessageText(text);
     }
-
     return (
     <div className={s.dialogs}>
         <div className={s.dialogsItems}>
@@ -27,11 +26,10 @@ const Dialogs = (props) => {
            {messagesElements}
         </div>
         <div className={s.sendBlock}>
-        <textarea  onChange={onMessageChange} ref={newMessageElement} value={props.newMessageText}/>
+        <textarea  onChange={onMessageChange} ref={newMessageElement} value={props.state.newMessageText}/>
         <button onClick={sendMessage}>Send</button>
         </div>
     </div>
     )
 }
-
 export default Dialogs;

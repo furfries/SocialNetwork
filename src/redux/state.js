@@ -1,8 +1,5 @@
-let rerenderEntireTree = () => {
-
-}
-
-let state = {
+let store = {
+    _state: {
         profilePage: {
             posts : [
             {id: 1, message: 'Hello World!'},
@@ -29,40 +26,41 @@ let state = {
         ],
             newMessageText: 'example',
     },
-};
-
-export let sendMessage = () => {
-    let newMessage = {
-        id: 7,
-        message: state.dialogsPage.newMessageText
-    }
-    state.dialogsPage.messages.push(newMessage);
-    state.dialogsPage.newMessageText = '';
-    rerenderEntireTree(state);
+    },
+    getState() {
+        return this._state;
+    },
+    _callSubscriber() {},
+    sendMessage() {
+        let newMessage = {
+            id: 7,
+            message: this._state.dialogsPage.newMessageText
+        }
+        this._state.dialogsPage.messages.push(newMessage);
+        this._state.dialogsPage.newMessageText = '';
+        this._callSubscriber(this._state);
+    },
+    updateNewMessageText(newText) {
+        this._state.dialogsPage.newMessageText = newText;
+        this._callSubscriber(this._state);
+    },
+    addPost() {
+        let newPost = {
+            id: 5,
+            message: this._state.profilePage.newPostText,
+        }
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = '';
+        this._callSubscriber(this._state);
+    },
+    updateNewPostText(newText) {
+        this._state.profilePage.newPostText = newText;
+        this._callSubscriber(this._state);
+    },
+    subscribe(observer) {
+        this._callSubscriber = observer;
+    },
+    
 }
 
-export let updateNewMessageText = (newText) => {
-    state.dialogsPage.newMessageText = newText;
-    rerenderEntireTree(state);
-}
-
-export let addPost = () => {
-    let newPost = {
-        id: 5,
-        message: state.profilePage.newPostText,
-    }
-    state.profilePage.posts.push(newPost);
-    state.profilePage.newPostText = '';
-    rerenderEntireTree(state);
-}
-
-export let updateNewPostText = (newText) => {
-    state.profilePage.newPostText = newText;
-    rerenderEntireTree(state);
-}
-
-export const subscribe = (observer) => {
-    rerenderEntireTree = observer;
-}
-
-export default state;
+export default store;

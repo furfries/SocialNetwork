@@ -1,13 +1,14 @@
 import React from 'react';
 import s from './Users.module.css'
 import usersPhoto from '../../assets/images/users.png';
+import { NavLink } from 'react-router-dom';
 
 let Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
-        if (i == 10) break;
+        if (i === 10) break;
     }
     return <div>
         <div>
@@ -20,7 +21,9 @@ let Users = (props) => {
             props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.photos.small != null ? u.photos.small : usersPhoto} className={s.userPhoto} />
+                        <NavLink to={'/profile'}>
+                            <img src={u.photos.small != null ? u.photos.small : usersPhoto} className={s.userPhoto} />
+                        </NavLink>
                     </div>
                     <div>
                         <button onClick={() => props.toggleFollow(u.id)}>

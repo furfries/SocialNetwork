@@ -11,3 +11,12 @@
     margin-left: 10px;
     margin-top: 5px;
 }
+
+.loginBlock {
+    float: right;
+    padding: 15px;
+}
+
+.loginBlock a {
+    color: white;
+}

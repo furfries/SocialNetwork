@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Users.module.css'
 import usersPhoto from '../../assets/images/users.png';
 import { NavLink } from 'react-router-dom';
+import { getFollow, getUnfollow } from '../../api/api';
 
 let Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -22,13 +23,31 @@ let Users = (props) => {
                 <span>
                     <div>
                         <NavLink to={'./../profile/' + u.id}>
-                            <img src={u.photos.small != null ? u.photos.small : usersPhoto} className={s.userPhoto} />
+                            <img src={u.photos.small != null ? u.photos.small : usersPhoto} 
+                            className={s.userPhoto} />
                         </NavLink>
                     </div>
                     <div>
-                        <button onClick={() => props.toggleFollow(u.id)}>
-                            {u.followed ? 'Unfollow' : 'Follow'}
-                        </button>
+                        {u.followed ?
+                            <button onClick={() => {
+                                getUnfollow(u.id)
+                                    .then(data => {
+                                        if (data.resultCode === 0) {
+                                            props.unfollow(u.id);
+                                        }
+                                    });
+                                props.unfollow(u.id)
+                            }}> Unfollow </button>
+                            : <button onClick={() => {
+                                getFollow(u.id)
+                                    .then(data => {
+                                        if (data.resultCode === 0) {
+                                            props.follow(u.id);
+                                        }
+                                    });
+                                props.follow(u.id)
+                            }}> Follow </button>}
+
                     </div>
                 </span>
                 <span>

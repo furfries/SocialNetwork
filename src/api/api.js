@@ -25,14 +25,17 @@ export const usersAPI = {
                 return response.data
             })
     },
-    getAuth() {
+    getProfile(userId) {
+        return instance.get(`profile/${userId}`);
+    }
+
+}
+
+export const authAPI = {
+    me() {
         return instance.get(`auth/me`)
             .then(response => {
                 return response.data
             })
     },
-    getProfile(userId) {
-        return instance.get(`profile/${userId}`)
-    }
-
 }
